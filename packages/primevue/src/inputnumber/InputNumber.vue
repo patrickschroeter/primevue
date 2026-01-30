@@ -422,6 +422,14 @@ export default {
                 return;
             }
 
+            const code = event.code || event.key;
+
+            if (event.metaKey && code === 'Backspace') {
+                this.updateModel(event, null);
+
+                return;
+            }
+
             if (event.altKey || event.ctrlKey || event.metaKey) {
                 this.isSpecialChar = true;
                 this.lastValue = this.$refs.input.$el.value;
@@ -436,7 +444,6 @@ export default {
             let selectionRange = selectionEnd - selectionStart;
             let inputValue = event.target.value;
             let newValueStr = null;
-            const code = event.code || event.key;
 
             switch (code) {
                 case 'ArrowUp':

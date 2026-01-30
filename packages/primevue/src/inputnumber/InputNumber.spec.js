@@ -87,6 +87,14 @@ describe('InputNumber.vue', () => {
         expect(wrapper.find('input.p-inputnumber-input').element._value).toBe('$12,345.00');
     });
 
+    it('should reset value to undefined when meta+backspace is pressed', async () => {
+        await wrapper.setProps({ modelValue: 20, mode: 'currency', currency: 'USD', locale: 'en-US' });
+
+        await wrapper.vm.onInputKeyDown({ code: 'Backspace', metaKey: true, target: { value: 100 }, preventDefault: () => {} });
+
+        expect(wrapper.find('input.p-inputnumber-input').element._value).toBe(undefined);
+    });
+
     it('should have prefix', async () => {
         await wrapper.setProps({ modelValue: 20, prefix: '%' });
 
