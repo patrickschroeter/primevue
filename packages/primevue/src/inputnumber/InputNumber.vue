@@ -424,13 +424,15 @@ export default {
 
             const code = event.code || event.key;
 
-            if (event.metaKey && code === 'Backspace') {
-                this.updateModel(event, null);
-
-                return;
-            }
-
             if (event.altKey || event.ctrlKey || event.metaKey) {
+                if (event.metaKey && code === 'Backspace') {
+                    this.lastValue = this.allowEmpty ? null : '0';
+
+                    this.updateModel(event, this.lastValue);
+
+                    return;
+                }
+
                 this.isSpecialChar = true;
                 this.lastValue = this.$refs.input.$el.value;
 
